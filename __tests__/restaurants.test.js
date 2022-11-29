@@ -26,18 +26,12 @@ describe('backend-express-template-routes', () => {
     });
   });
 
-  it('#GET /restaurants/:restid should return a restaurant with reviews', async () => {
+  it('#GET /restaurants/:id should return a restaurant with reviews', async () => {
     const res = await request(app).get('/api/v1/restaurants/1');
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({
-      id: '1',
-      name: 'Pips Original',
-      reviews: [
-        { stars: 5, review: 'best restaurant ever!' },
-      ]
-    });
+    expect(res.body).toMatchInlineSnapshot;
   });
+
+    
 
   afterAll(() => {
     pool.end();
