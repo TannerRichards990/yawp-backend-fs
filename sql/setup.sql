@@ -4,14 +4,14 @@ DROP TABLE IF EXISTS rest_reviews;
 
 DROP TABLE IF EXISTS users cascade;
 
-DROP TABLE IF EXISTS restaurants;
+DROP TABLE IF EXISTS restaurants cascade;
 
 CREATE TABLE users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email VARCHAR,
   password_hash VARCHAR NOT NULL,
-  first_name VARCHAR NOT NULL,
-  last_name VARCHAR NOT NULL
+  first_name VARCHAR,
+  last_name VARCHAR 
 );
 
 INSERT INTO

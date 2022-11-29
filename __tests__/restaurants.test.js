@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const UserService = require('../lib/services/UserService');
 
 const mockUser = {
   username: 'test',
@@ -9,13 +10,20 @@ const mockUser = {
   password: '123456',
 };
 
-const agent = request.agent(app);
+const registerAndLogin = async () => {
+  const agent = request.agent(app);
+  const user = await UserService.create(mockUser);
+  console.log('this is test for login', user);
+  await agent
+    .post('/api/v1/users/sessions')
+    .send({ email: mockUser.email, password: mockUser.password });
+  return [agent, user];
+};
 
 describe('backend-express-template-routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-
 
   it.skip('#GET /restaurants should return a list of restaurants', async () => {
     const res = await request(app).get('/api/v1/restaurants');
@@ -26,12 +34,26 @@ describe('backend-express-template-routes', () => {
     });
   });
 
-  it('#GET /restaurants/:id should return a restaurant with reviews', async () => {
+  it.skip('#GET /restaurants/:id should return a restaurant with reviews', async () => {
     const res = await request(app).get('/api/v1/restaurants/1');
     expect(res.body).toMatchInlineSnapshot;
   });
 
-    
+  it('#POST /api/v1/restaurants/1 should post a new review', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent
+      .post('/api/v1/restaurants/1/reviews')
+      .send({ stars: 5, detail: 'testing if it was good' });
+    expect(res.body).toMatchInlineSnapshot(`
+      Object {
+        "detail": "testing if it was good",
+        "id": "27",
+        "restaurant_id": "1",
+        "stars": 5,
+        "user_id": "4",
+      }
+    `);
+  });
 
   afterAll(() => {
     pool.end();
