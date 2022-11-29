@@ -32,11 +32,9 @@ describe('backend-express-template-routes', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
       id: '1',
-      name: 'Burgerville',
+      name: 'Pips Original',
       reviews: [
-        { stars: 5, review: 'best burger on the planet' },
-        { stars: 4, review: 'good burger' },
-        { stars: 3, review: 'ok burger' },
+        { stars: 5, review: 'best restaurant ever!' },
       ]
     });
   });
