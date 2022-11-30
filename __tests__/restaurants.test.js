@@ -10,6 +10,7 @@ const mockUser = {
   password: '123456',
 };
 
+
 const registerAndLogin = async () => {
   const agent = request.agent(app);
   const user = await UserService.create(mockUser);
@@ -58,3 +59,4 @@ describe('backend-express-template-routes', () => {
     pool.end();
   });
 });
+

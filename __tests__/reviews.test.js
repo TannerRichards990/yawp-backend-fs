@@ -17,11 +17,11 @@ describe('delete tests', () => {
       firstName: 'admin',
       lastName: 'admin',
       email: 'admin',
-      password: 'admin',
+      password: 'password',
     });
     await agent.post ('/api/v1/users/sessions').send({
       email: 'admin',
-      password: 'admin',
+      password: 'password',
     });
     const res = await agent.delete('/api/v1/reviews/1');
     expect(res.status).toBe(204);
@@ -30,4 +30,5 @@ describe('delete tests', () => {
     expect(getRes.status).toBe(404);
   });
 });
-    
+
+
