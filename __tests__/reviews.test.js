@@ -4,6 +4,8 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 
+
+
 describe('delete tests', () => {
   beforeEach(() => {
     return setup(pool);
@@ -28,6 +30,10 @@ describe('delete tests', () => {
 
     const getRes = await agent.get('/api/v1/reviews/1');
     expect(getRes.status).toBe(404);
+  });
+
+  afterAll(() => {
+    pool.end();
   });
 });
 

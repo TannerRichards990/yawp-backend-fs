@@ -1,6 +1,6 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
-DROP TABLE IF EXISTS rest_reviews;
+DROP TABLE IF EXISTS reviews;
 
 DROP TABLE IF EXISTS users cascade;
 
@@ -45,7 +45,7 @@ CREATE TABLE restaurants (
   website VARCHAR
 );
 
-CREATE TABLE rest_reviews (
+CREATE TABLE reviews (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   user_id BIGINT,
   restaurant_id BIGINT,
